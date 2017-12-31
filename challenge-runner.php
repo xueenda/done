@@ -331,6 +331,41 @@ $statusLog = array(
 $answer12 = 0;
 $testObject12 = new SomeObject($statusLog, $startDate, $stopDate);
 
+// TEST CASE 13
+$startDate = date("U", strtotime("2015-10-17 12:00:00"));
+$stopDate = null;
+$statusLog = array(
+  array(
+    'date' => date("U", strtotime("2015-10-15")),
+    'oldState' => null,
+    'newState' => 'PAUSED'
+  ),
+  array(
+    'date' => date("U", strtotime("2015-10-16")),
+    'oldState' => 'PAUSED',
+    'newState' => 'RUNNING'
+  ),
+  array(
+    'date' => date("U", strtotime("2015-10-17")),
+    'oldState' => 'RUNNING',
+    'newState' => 'RUNNING'
+  ),
+  array(
+    'date' => date("U", strtotime("2015-10-18")),
+    'oldState' => 'RUNNING',
+    'newState' => 'RUNNING'
+  ),
+  array(
+    'date' => date("U", strtotime("2015-10-19")),
+    'oldState' => 'RUNNING',
+    'newState' => 'PAUSED'
+  )
+);
+
+$answer13 = date("U", strtotime("2015-10-19")) - date("U", strtotime("2015-10-17 12:00:00"));
+
+$testObject13 = new SomeObject($statusLog, $startDate, $stopDate);
+
 
 /********** This block runs all the test cases **********/
 for($i = 1; ;$i++){

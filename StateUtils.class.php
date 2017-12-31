@@ -38,6 +38,10 @@ class StateUtils {
     // Index $open: state open position
     // Index $close: state close position
     $duration = 0; $open = -1; $close = -1;
+
+    if($startDate && $statusLog[$s]['newState'] == $state && $statusLog[$s]['oldState'] == $state)
+        $open = $s;
+
     for($i = $s; $i <= $e; $i++){
       if($statusLog[$i]['newState'] == $state && $statusLog[$i]['oldState'] != $state)
         $open = $i;
@@ -46,7 +50,9 @@ class StateUtils {
         $close = $i;
 
       if($open != -1 && $close > $open)
-        $duration += $statusLog[$close]['date'] - $statusLog[$open]['date'];
+        $duration += $statusLog[$close]['date'] - (
+            $open == $s && $startDate ? $startDate : $statusLog[$open]['date']
+          );
     }
 
     // Edge case: In open state after the loop
